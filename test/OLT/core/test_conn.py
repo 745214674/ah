@@ -14,4 +14,11 @@ def make_connection():
         tn.write(b'admin' + b'\n')
 
         if 0 in ip_split:
-            tn.write()
+            tn.read_until(b'Password:' )
+            default_password = 'test'
+            password = input("请输入密码回车为默认密码：%s" % default_password)
+            if len(password) ==0:
+                password = default_password
+            tn.write(bytes(password))
+    else:
+        tn.write(b'raisecom' + b'\n')
